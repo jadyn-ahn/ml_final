@@ -17,6 +17,7 @@ class Loader:
     def load_vecs(cls, learn_type):
         ds = Dataset.from_tensor_slices(DataPath.vec_paths(learn_type))
         ds = ds.map(lambda path: cls.load_vec(path))
+        return ds
     
     @staticmethod
     def load_img(path):
