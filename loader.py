@@ -14,6 +14,7 @@ class Loader:
             imgs[i] = img
         return imgs
 
+    #TODO: Slice vecs properly
     @classmethod
     def load_vecs(cls, learn_type):
         paths = DataPath.vec_paths(learn_type)
