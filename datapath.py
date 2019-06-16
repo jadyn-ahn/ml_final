@@ -31,7 +31,7 @@ class DataPath:
     @staticmethod
     def seq_num(learn_type):
         if learn_type == "train":
-            return 1000
+            return 10000
         else: #val or test
             return 500
 

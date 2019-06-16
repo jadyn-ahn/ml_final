@@ -1,5 +1,5 @@
 import tensorflow
-from datetime.datetime import now
+from datetime import datetime
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.models import load_model
 from factory import ModelFactory
@@ -29,7 +29,7 @@ class Helper:
     
     @classmethod
     def save_enc_dec(cls, model):
-        t = cls.TIME_FORM.format(now())
+        t = cls.TIME_FORM.format(datetime.now())
         model.save_weights(cls.ENC_DEC.format(t))
         model.layers[1].save_weights(cls.ENC.format(t))
         model.layers[2].save_weights(cls.DEC.format(t))
@@ -68,7 +68,7 @@ class Helper:
     
     @classmethod
     def save_lstm(cls, model):
-        t = cls.TIME_FORM.format(now())
+        t = cls.TIME_FORM.format(datetime.now())
         model.save_weights(cls.LSTM.format(t))
         print("SAVE DONE! LSTM {}".format(t))
     

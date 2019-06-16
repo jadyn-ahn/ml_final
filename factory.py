@@ -48,4 +48,5 @@ class ModelFactory:
     
     @classmethod
     def get_lstm(cls):
-        pass
+        model = Sequential([LSTM(cls.VECTOR_SHAPE, input_shape=(10, 1024)),])
+        return model

@@ -14,15 +14,16 @@ class Loader:
             imgs[i] = img
         return imgs
 
-    #TODO: Slice vecs properly
     @classmethod
-    def load_vecs(cls, learn_type):
+    def load_vecs(cls, learn_type, timesteps):
         paths = DataPath.vec_paths(learn_type)
-        if learn_type == "test":
-            vecs = np.zeros([len(paths), 10, 1024])
-        else:
-            vecs = np.zeors([len(paths), 20, 1024])
+        total_seq_num = len(paths) * (20 - timesteps)
+        lstm_input = np.zeros([total_seq_num, timesteps, 1024])
+        lstm_output = np.zeros([total_seq_num, 1024])
         for i, path in enumerate(paths):
-            vec = np.load(path)
-            vecs[i] = vec
-        return vecs
+            vec_seq = np.load(path)
+            for j in range(0, 20 - timesteps):
+                order = i * (20 - timesteps) + j
+                lstm_input[order] = vec_seq[j:j+timesteps]
+                lstm_output[order] = vec_seq[j+timesteps]
+        return lstm_input, lstm_output
