@@ -12,14 +12,15 @@ class Helper:
     LSTM = "Model/{}_lstm.h5"
     
     @staticmethod
-    def train_enc_dec(model, trainset, valset, batch_size, epochs, lr, decay, loss="binary_crossentropy"):
+    def train_enc_dec(model, train_data, val_data, batch_size, epochs, lr, decay, loss="binary_crossentropy"):
         opt = tensorflow.keras.optimizers.Adam(lr=lr, decay=decay)
         model.compile(optimizer=opt, loss=loss)
         checkpoint = ModelCheckpoint(filepath="Model/tmp_enc_dec.h5", verbose=1, save_best_only=True)
-        model.fit(trainset.batch(batch_size),
-                  validation_data=valset.batch(batch_size),
+        model.fit(train_data[0],
+                  train_data[1],
+                  batch_size=batch_size,
                   epochs=epochs,
-                  steps_per_epoch=200000//batch_size,
+                  validation_data=val_data,
                   callbacks=[checkpoint],
                   verbose=1)
         return model

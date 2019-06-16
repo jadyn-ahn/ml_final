@@ -25,7 +25,7 @@ class DataPath:
         seq_num = cls.seq_num(learn_type)
         paths = []
         for i in range(seq_num):
-            paths.append(os.path.join(top, mid.format(i), bot)
+            paths.append(os.path.join(top, mid.format(i), bot))
         return paths
 
     @staticmethod
@@ -43,7 +43,7 @@ class DataPath:
             return 20
 
     @staticmethod
-    def dir_format(learn_type):
+    def mid_format(learn_type):
         if learn_type == "train":
             return os.path.join("train_sequence", "sequence{:04}")
         else:
