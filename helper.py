@@ -17,7 +17,7 @@ class Helper:
         model.compile(optimizer=opt, loss=loss)
         checkpoint = ModelCheckpoint(filepath="Model/tmp_enc_dec.h5", verbose=1, save_best_only=True)
         model.fit(trainset.batch(batch_size),
-                  validation_data=valset,
+                  validation_data=valset.batch(batch_size),
                   epochs=epochs,
                   steps_per_epoch=200000//batch_size,
                   callbacks=[checkpoint],
