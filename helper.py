@@ -54,14 +54,15 @@ class Helper:
         return model
     
     @staticmethod
-    def train_lstm(model, trainset, valset, batch_size, epochs, lr, decay, loss="mean_absolute_error"):
+    def train_lstm(model, train_data, val_data, batch_size, epochs, lr, decay, loss="kld"):
         opt = tensorflow.keras.optimizers.Adam(lr=lr, decay=decay)
         model.compile(optimizer=opt, loss=loss)
         checkpoint = ModelCheckpoint(filepath="Model/tmp_lstm.h5", verbose=1, save_best_only=True)
-        model.fit(trainset.batch(batch_size),
-                  validation_data=valset,
+        model.fit(train_data[0],
+                  train_data[1],
+                  batch_size=batch_size,
                   epochs=epochs,
-                  steps_per_epoch=100000//batch_size,
+                  validation_data=val_data,
                   callbacks=[checkpoint],
                   verbose=1)
         return model

@@ -7,7 +7,6 @@ from tensorflow.keras.layers import LSTM
 class ModelFactory:
     
     VECTOR_SHAPE = 1024
-    TIME_STEPS = 10
     
     @classmethod
     def get_enc_dec(cls):
@@ -47,6 +46,6 @@ class ModelFactory:
         return layers
     
     @classmethod
-    def get_lstm(cls):
-        model = Sequential([LSTM(cls.VECTOR_SHAPE, input_shape=(10, 1024)),])
+    def get_lstm(cls, timesteps):
+        model = Sequential([LSTM(cls.VECTOR_SHAPE, input_shape=(timesteps, 1024)),])
         return model

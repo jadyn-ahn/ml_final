@@ -19,5 +19,7 @@ def convert_and_save(model, in_img_seqs, out_img_seqs, vec_paths):
         out_seq = out_img_seqs[i]
         stacked = np.stack((in_seq, out_seq)).reshape((20, 64, 64, 3))
         vectors = model.predict(stacked)
-        os.makedirs(path, exist_ok=True)
+        os.makedirs(path[:-8], exist_ok=True)
         np.save(path, vectors)
+        if i % 10 == 0:
+            print("now {}th saved.".format(i))
